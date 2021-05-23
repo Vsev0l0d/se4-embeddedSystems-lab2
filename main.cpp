@@ -2,9 +2,9 @@
 #define T 50
 #define SIZE 8
 
-unsigned int leds_num[] = {GPIO_PIN_3, GPIO_PIN_4, GPIO_PIN_5, GPIO_PIN_6, GPIO_PIN_8, GPIO_PIN_9, GPIO_PIN_11, GPIO_PIN_12};
-unsigned int sw_num[] = {GPIO_PIN_4, GPIO_PIN_8, GPIO_PIN_10, GPIO_PIN_12};
-unsigned int i;
+int leds_num[] = {GPIO_PIN_3, GPIO_PIN_4, GPIO_PIN_5, GPIO_PIN_6, GPIO_PIN_8, GPIO_PIN_9, GPIO_PIN_11, GPIO_PIN_12};
+int sw_num[] = {GPIO_PIN_4, GPIO_PIN_8, GPIO_PIN_10, GPIO_PIN_12};
+int i;
 
 int get_SW() {
     return  8 * HAL_GPIO_ReadPin(GPIOE, sw_num[0]) +
@@ -15,7 +15,7 @@ int get_SW() {
 
 void TIM6_IRQ_Handler() {
     for (int j = 0; j < SIZE; j++){
-        if (j == i || j == i + 1 || j == SIZE - i) HAL_GPIO_WritePin(GPIOD, leds_num[j], GPIO_PIN_SET);
+        if (j == i || j == i + 1 || j == SIZE - i - 1) HAL_GPIO_WritePin(GPIOD, leds_num[j], GPIO_PIN_SET);
         else HAL_GPIO_WritePin(GPIOD, leds_num[j], GPIO_PIN_RESET);
     }
     i++;
